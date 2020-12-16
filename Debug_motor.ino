@@ -26,18 +26,10 @@ void loop() {
     int n = Serial.parseInt();
     x+=n;
     if (n < 0){
-      for(int i = 0; i < n; i++) {
-        digitalWrite(stp,HIGH); 
-        delayMicroseconds(200); 
-        digitalWrite(stp,LOW); 
-        delayMicroseconds(200);}
+      Move(stp,n);
     } 
     else if (n > 0){
-      for(int i = 0; i < n; i++) {
-        digitalWrite(dir,HIGH); 
-        delayMicroseconds(200); 
-        digitalWrite(dir,LOW); 
-        delayMicroseconds(200);}
+      Move(dir,n);
     }
     Serial.print("New x:");
     Serial.println(x);
