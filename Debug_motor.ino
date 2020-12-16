@@ -2,14 +2,18 @@ const int stp = 13;
 const int dir = 12;
 int x = 0; 
 void startpoint(){
-  digitalWrite(stp,HIGH);   // Если крутиться в неправильную сторону то закоменть эту строку и раскоменть нижнюю 
-  //digitalWrite(dir,HIGH); 
+  Move(stp, 1000);   // Если крутиться в неправильную сторону то закоменть эту строку и раскоменть нижнюю 
+  //Move(dir, 1000); 
   Serial.println("Wait 10 seconds");
-  delay(10000);
-  digitalWrite(stp,LOW);
-  digitalWrite(dir,LOW);
   Serial.println("Ready");
 
+}
+void Move(int flag, int dist){
+  for(int i = 0; i < dist; i++) {
+      digitalWrite(flag,HIGH); 
+      delayMicroseconds(200); 
+      digitalWrite(flag,LOW); 
+      delayMicroseconds(200);}
 }
 void setup() {
   Serial.begin(9600);
