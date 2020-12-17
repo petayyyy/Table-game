@@ -3,11 +3,9 @@
 #define PIN 6 // pin led
 CRGB leds[NUM_LEDS];
 
-const int stp_x = 13;const int dir_x = 12;const int stp_y = 11;const int dir_y = 10;
 String str = "";
 int x1 = 0; int x2 = 0; int y1 = 0; int y2 = 0;
 bool players = 0;
-int x_dist = 2; int y_dist = 3;int x_last = 0;int y_last = 0;
 
 int pose[64][10] = {{ 0 , 1 , 2 , 24 , 25 , 26 , 48 , 49 , 50 , 0},
 { 3 , 4 , 5 , 27 , 28 , 29 , 51 , 52 , 53 , 0},
@@ -117,53 +115,11 @@ void start(){
         } 
       }
 }
-// массив 24 на 10,  9 pix + индекс xp
-void startpoint(){
-  Move(stp_x, 1000);   // Если крутиться в неправильную сторону то закоменть эту строку и раскоменть нижнюю 
-  //Move(dir_x, 1000); 
-  Serial.println("Wait 10 seconds");
-  Serial.println("Ready");
 
-}
-void Move(int flag, int dist){
-  for(int i = 0; i < dist; i++) {
-      digitalWrite(flag,HIGH); 
-      delayMicroseconds(200); 
-      digitalWrite(flag,LOW); 
-      delayMicroseconds(200);}
-}
-void moveto(int x1,int x2, int y1,int y2){
-  if (x1-x_last > 0){
-    Move(stp_x,(x1-x_last)*x_dist);
-  }else{
-    Move(dir_x,-(x1-x_last)*x_dist);
-  }
-  if (y1-y_last > 0){
-    Move(stp_y,(y1-y_last)*y_dist);
-  }else{
-    Move(dir_y,-(y1-y_last)*y_dist);
-  }
-  // Включение магнита
-  if (x2-x1 > 0){
-    Move(stp_x,(x2-x1)*x_dist);
-  }else{
-    Move(dir_x,-(x2-x1)*x_dist);
-  }
-  if (y2-y1 > 0){
-    Move(stp_y,(y2-y1)*y_dist);
-  }else{
-    Move(dir_y,-(y2-y1)*y_dist);
-  }
-  // Выключение магнита
-}
 void setup() {
   Serial.begin(9600);
   FastLED.addLeds<WS2811, PIN, GRB>(leds, NUM_LEDS).setCorrection( TypicalLEDStrip );
   FastLED.setBrightness(50);
-  pinMode(stp_x,OUTPUT); 
-  pinMode(dir_x,OUTPUT);
-  pinMode(stp_y,OUTPUT); 
-  pinMode(dir_y,OUTPUT);
   }
 
 void loop() {
